@@ -1,9 +1,9 @@
-package Main;
+package src.Main;
 
-import Input.KeyboardInputs;
-import Input.MouseInputs;
-import static utils.Constants.PlayerConstants.*;
-import static utils.Constants.Directions.*;
+import src.Input.KeyboardInputs;
+import src.Input.MouseInputs;
+import static src.utils.Constants.PlayerConstants.*;
+import static src.utils.Constants.Directions.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,6 +23,10 @@ public class GamePanel extends JPanel {
     private int playerDirection = -1;
     private boolean playerMoving = false;
 
+    /**
+     * Constructor
+     * Initialize the various mouse and keyboard input listeners and at the same time import and load the animations
+     */
     public GamePanel() {
         mouseInputs = new MouseInputs(this);
         importImage();
@@ -34,6 +38,9 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(mouseInputs);
     }
 
+    /**
+     * Import the image file
+     */
     private void importImage() {
         InputStream is = getClass().getResourceAsStream("/player_sprites.png");
 
@@ -51,6 +58,9 @@ public class GamePanel extends JPanel {
 
     }
 
+    /**
+     * Load the animation from the subimages from the image file
+     */
     private void loadAnimation() {
         animations = new BufferedImage[9][6];
 
@@ -60,7 +70,9 @@ public class GamePanel extends JPanel {
             }
         }
     }
-
+    /**
+     * Set the size of the game panel
+     */
     private void setPanelSize() {
         Dimension size = new Dimension(1280, 800);
         setMinimumSize(size);
@@ -68,15 +80,26 @@ public class GamePanel extends JPanel {
         setMaximumSize(size);
     }
 
+    /**
+     * Set the direction in which the player is moving in
+     * @param direction the direction the player is moving
+     */
     public void setDirection(int direction){
         playerDirection = direction;
         playerMoving = true;
     }
 
+    /**
+     * Set whether the player is moving or not
+     * @param moving whether the player is moving
+     */
     public void setMoving(boolean moving){
         playerMoving = moving;
     }
 
+    /**
+     * Update which image to use in the image array for the various animations
+     */
     private void updateAnimationTick() {
         animationTick ++;
 
@@ -84,12 +107,15 @@ public class GamePanel extends JPanel {
             animationTick = 0;
             animationIndex ++;
 
-            if(animationIndex >= getSpriteAmount(playerAction))
+            if(animationIndex > getSpriteAmount(playerAction) - 1)
                 animationIndex = 0;
 
         }
     }
 
+    /**
+     * Set the animation type to use for the player character
+     */
     private void setAnimation() {
 
         if(playerMoving)
@@ -98,6 +124,9 @@ public class GamePanel extends JPanel {
             playerAction = IDLE;
     }
 
+    /**
+     * Update the player position
+     */
     private void updatePosition() {
         if(playerMoving){
             switch (playerDirection){
@@ -117,12 +146,19 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Logic update loop for the game
+     */
     public void updateGame(){
         updateAnimationTick();
         setAnimation();
         updatePosition();
     }
 
+    /**
+     * Frame update loop for the fame
+     * @param g the <code>Graphics</code> object to paint
+     */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(animations[playerAction][animationIndex],(int)xDelta,(int)yDelta, 256, 160,null);

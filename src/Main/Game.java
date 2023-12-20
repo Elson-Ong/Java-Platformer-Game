@@ -1,4 +1,4 @@
-package Main;
+package src.Main;
 
 
 /**
@@ -14,6 +14,10 @@ public class Game implements Runnable{
     private final int FPS = 120;
     private final int UPS = 200;
 
+    /**
+     * Constructor
+     * Initialize  the game panel and window and starts the game loop
+     */
     public Game(){
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
@@ -21,15 +25,25 @@ public class Game implements Runnable{
         startGameLoop();
     }
 
+    /**
+     * Method to start the game loop
+     */
     private void startGameLoop(){
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * Method to update the game state
+     */
     public void update(){
         gamePanel.updateGame();
     }
 
+    /**
+     * The game loop
+     * Updates the logic and the frames of the game based on the set interval determined by the FPS and UPS
+     */
     @Override
     public void run() {
 

@@ -1,4 +1,4 @@
-package Main;
+package src.Main;
 
 import javax.swing.*;
 

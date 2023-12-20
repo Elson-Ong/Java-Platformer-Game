@@ -1,7 +1,14 @@
-package utils;
+package src.utils;
 
+/**
+ * @author Tze Yik Ong
+ * Class containing all the constant values needed for the game.
+ */
 public class Constants {
 
+    /**
+     * Constants for the direction of player movement
+     */
     public static class Directions{
         public static final int LEFT = 0;
         public static final int UP = 1;
@@ -9,6 +16,9 @@ public class Constants {
         public static final int DOWN = 3;
     }
 
+    /**
+     * Constant for the current state for the player character
+     */
     public static class PlayerConstants{
         public static final int IDLE = 0;
         public static final int RUNNING = 1;

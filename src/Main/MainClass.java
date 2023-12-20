@@ -1,4 +1,4 @@
-package Main;
+package src.Main;
 
 /**
  * @author Tze Yik Ong

@@ -1,6 +1,6 @@
-package Input;
+package src.Input;
 
-import Main.GamePanel;
+import src.Main.GamePanel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
