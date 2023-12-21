@@ -1,5 +1,9 @@
-package src.Main;
+package src.main;
 
+
+import src.entities.Player;
+
+import java.awt.*;
 
 /**
  * @author  Tze Yik Ong
@@ -13,16 +17,26 @@ public class Game implements Runnable{
     private  Thread gameThread;
     private final int FPS = 120;
     private final int UPS = 200;
+    private Player player;
 
     /**
      * Constructor
      * Initialize  the game panel and window and starts the game loop
      */
-    public Game(){
-        gamePanel = new GamePanel();
+    public Game() {
+        initClasses();
+        gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameLoop();
+    }
+
+
+    /**
+     * Helper class to initialize all the classes
+     */
+    private void initClasses() {
+        player = new Player(200,200);
     }
 
     /**
@@ -37,7 +51,14 @@ public class Game implements Runnable{
      * Method to update the game state
      */
     public void update(){
-        gamePanel.updateGame();
+        player.update();
+    }
+
+    /**
+     * Method to render the game
+     */
+    public void render(Graphics g){
+        player.render(g);
     }
 
     /**
@@ -85,4 +106,16 @@ public class Game implements Runnable{
             }
         }
     }
+
+    /**
+     * Method to deal with game window losing focus
+     */
+    public void windowFocusLost(){
+        player.resetDirBoolean();
+    }
+
+    public Player getPlayer(){
+        return player;
+    }
+
 }

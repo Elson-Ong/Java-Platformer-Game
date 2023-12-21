@@ -1,6 +1,8 @@
-package src.Main;
+package src.main;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 /**
  * @author  Tze Yik Ong
@@ -20,6 +22,16 @@ public class GameWindow {
         jframe.pack();
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
+        jframe.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                gamePanel.getGame().windowFocusLost();
+            }
+        });
     }
 }
