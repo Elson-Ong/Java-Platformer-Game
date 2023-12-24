@@ -1,10 +1,21 @@
 package src.utils;
 
+import src.main.Game;
+
 /**
  * @author Tze Yik Ong
  * Class containing all the constant values needed for the game.
  */
 public class Constants {
+
+    public static class UI{
+        public static class Buttons{
+            public static final int B_WIDTH_DEFAULT = 140;
+            public static final int B_HEIGHT_DEFAULT = 56;
+            public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * Game.SCALE);
+            public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * Game.SCALE);
+        }
+    }
 
     /**
      * Constants for the direction of player movement
