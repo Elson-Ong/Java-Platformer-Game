@@ -1,9 +1,8 @@
 package src.ui;
 
-import src.gameStates.Gamestate;
-import src.gameStates.Playing;
+import src.gamestates.Gamestate;
+import src.gamestates.Playing;
 import src.main.Game;
-import src.utils.Constants;
 import src.utils.LoadSave;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package src.gameStates;
+package src.gamestates;
 
 public enum Gamestate {
 

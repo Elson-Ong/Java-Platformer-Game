@@ -1,8 +1,8 @@
 package src.main;
 
-import src.gameStates.Gamestate;
-import src.gameStates.Menu;
-import src.gameStates.Playing;
+import src.gamestates.Gamestate;
+import src.gamestates.Menu;
+import src.gamestates.Playing;
 
 import java.awt.*;
 

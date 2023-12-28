@@ -1,4 +1,4 @@
-package src.gameStates;
+package src.gamestates;
 
 import src.main.Game;
 import src.ui.MenuButton;

@@ -3,10 +3,8 @@ package src.inputs;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import src.entities.Player;
-import src.gameStates.Gamestate;
+import src.gamestates.Gamestate;
 import src.main.GamePanel;
-import static src.utils.Constants.Directions.*;
 
 public class KeyboardInputs implements KeyListener {
 

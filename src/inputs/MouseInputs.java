@@ -1,6 +1,6 @@
 package src.inputs;
 
-import src.gameStates.Gamestate;
+import src.gamestates.Gamestate;
 import src.main.GamePanel;
 
 import java.awt.event.MouseEvent;
