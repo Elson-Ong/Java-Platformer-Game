@@ -42,6 +42,23 @@ public class Constants {
             return 0;
         }
 
+        public static int getMaxHealth(int enemyType){
+            switch(enemyType){
+                case CRABBY:
+                    return 10;
+                default:
+                    return 1;
+            }
+        }
+
+        public static int getEnemyDmg(int enemyType){
+            switch(enemyType){
+                case CRABBY:
+                    return 15;
+                default:
+                    return 0;
+            }
+        }
     }
 
     public static class Environment{
@@ -103,15 +120,16 @@ public class Constants {
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
         public static final int FALLING = 3;
-        public static final int GROUND = 4;
+        public static final int ATTACK = 4;
         public static final int HIT = 5;
-        public static final int ATTACK_1 = 6;
-        public static final int ATTACK_JUMP_1 = 7;
-        public static final int ATTACK_JUMP_2 = 8;
+        public static final int DEAD = 6;
+
 
         public static int getSpriteAmount(int playerAction){
 
             switch (playerAction){
+                case DEAD:
+                    return 8;
                 case RUNNING:
                     return 6;
                 case IDLE:
@@ -119,12 +137,8 @@ public class Constants {
                 case HIT:
                     return 4;
                 case JUMP:
-                case ATTACK_1:
-                case ATTACK_JUMP_1:
-                case ATTACK_JUMP_2:
+                case ATTACK:
                     return 3;
-                case GROUND:
-                    return 2;
                 case FALLING:
                 default:
                     return 1;
