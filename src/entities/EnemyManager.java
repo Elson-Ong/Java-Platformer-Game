@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import src.gamestates.Playing;
+import src.levels.Level;
 import src.utils.LoadSave;
 import static src.utils.Constants.EnemyConstants.*;
 
@@ -18,18 +19,23 @@ public class EnemyManager {
     public EnemyManager(Playing playing) {
         this.playing = playing;
         loadEnemyImgs();
-        addEnemies();
     }
 
-    private void addEnemies() {
-        crabbies = LoadSave.getCrabs();
-
+    public void loadEnemies(Level level) {
+        crabbies = level.getCrabsList();
     }
 
     public void update(int[][] lvlData, Player player) {
+        boolean isAnyActive = false;
+
         for (Crabby c : crabbies)
-            if(c.isActive())
+            if(c.isActive()) {
                 c.update(lvlData, player);
+                isAnyActive = true;
+            }
+
+        if(!isAnyActive)
+            playing.setLvlCompleted(true);
     }
 
     public void draw(Graphics g, int xLvlOffset) {
