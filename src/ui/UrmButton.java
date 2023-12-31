@@ -4,10 +4,13 @@ import src.utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 import static src.utils.Constants.UI.UrmButtons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the URM buttons (Unpause, Replay, Menu)
+ */
 public class UrmButton extends PauseButton{
 
     private BufferedImage[] imgs;

@@ -18,6 +18,10 @@ import src.ui.PauseOverlay;
 import src.utils.LoadSave;
 import static src.utils.Constants.Environment.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the "playing" loop of the game
+ */
 public class Playing extends State implements Statemethods {
     // Classes
     private Player player;

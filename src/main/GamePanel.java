@@ -6,6 +6,10 @@ import src.inputs.MouseInputs;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the game panel(the game display itself)
+ */
 public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;

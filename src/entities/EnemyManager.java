@@ -8,8 +8,13 @@ import java.util.ArrayList;
 import src.gamestates.Playing;
 import src.levels.Level;
 import src.utils.LoadSave;
+
 import static src.utils.Constants.EnemyConstants.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class to manage,load,update and draw all the enemies
+ */
 public class EnemyManager {
 
     private Playing playing;
@@ -45,7 +50,7 @@ public class EnemyManager {
     private void drawCrabs(Graphics g, int xLvlOffset) {
         for (Crabby c : crabbies)
             if (c.isActive()) {
-                g.drawImage(crabbyArr[c.getEnemyState()][c.getAniIndex()],
+                g.drawImage(crabbyArr[c.getState()][c.getAniIndex()],
                         (int) c.getHitbox().x - xLvlOffset - CRABBY_DRAWOFFSET_X + c.flipX(),
                         (int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y,
                         CRABBY_WIDTH * c.flipW(), CRABBY_HEIGHT, null);

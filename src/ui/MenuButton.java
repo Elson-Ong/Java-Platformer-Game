@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 
 import static src.utils.Constants.UI.Buttons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for all the buttons in the menu screen
+ */
 public class MenuButton {
 
     private  int xPos, yPos, rowIndex, index;

@@ -2,6 +2,10 @@ package src.ui;
 
 import java.awt.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Superclass for all the buttons on the pause overlay
+ */
 public class PauseButton {
 
     protected int x, y, width, height;

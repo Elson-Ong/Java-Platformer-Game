@@ -3,14 +3,13 @@ package src.main;
 import src.gamestates.Gamestate;
 import src.gamestates.Menu;
 import src.gamestates.Playing;
-import src.utils.LoadSave;
 
 import java.awt.*;
 
 /**
  * @author  Tze Yik Ong
  *
- * Class for  the game
+ * Class for  the game loop
  */
 public class Game implements Runnable{
 
@@ -33,12 +32,10 @@ public class Game implements Runnable{
 
     public Game() {
         initClasses();
-
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
-
         startGameLoop();
     }
 

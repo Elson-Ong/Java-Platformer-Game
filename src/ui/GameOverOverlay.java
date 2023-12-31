@@ -7,6 +7,10 @@ import src.main.Game;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the Game Over overlay
+ */
 public class GameOverOverlay {
 
     private Playing playing;

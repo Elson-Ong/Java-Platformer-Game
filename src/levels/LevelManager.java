@@ -1,7 +1,6 @@
 package src.levels;
 
 import src.gamestates.Gamestate;
-import src.gamestates.Playing;
 import src.main.Game;
 import src.utils.LoadSave;
 
@@ -9,6 +8,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * @author  Tze Yik Ong
+ * Class to load all the level data of all the levels and move between different levels
+ */
 public class LevelManager {
 
     private Game game;

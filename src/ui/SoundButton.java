@@ -4,8 +4,13 @@ import src.utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
 import static src.utils.Constants.UI.PauseButtons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the sound buttons on the pause overlay
+ */
 public class SoundButton extends PauseButton {
 
     private BufferedImage[][] soundImgs;

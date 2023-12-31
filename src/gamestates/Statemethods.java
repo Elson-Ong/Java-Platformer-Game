@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * @author  Tze Yik Ong
+ * Interface containing all the methods for the different game states
+ */
 public interface Statemethods {
-
     public void update();
     public void draw(Graphics g);
     public void mouseClicked(MouseEvent e);

@@ -9,6 +9,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the menu screen
+ */
 public class Menu extends State implements Statemethods{
 
     private MenuButton[] buttons = new MenuButton[3];

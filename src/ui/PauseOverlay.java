@@ -13,6 +13,10 @@ import static src.utils.Constants.UI.PauseButtons.*;
 import static src.utils.Constants.UI.UrmButtons.*;
 import static src.utils.Constants.UI.VolumeButtons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the Pause overlay
+ */
 public class PauseOverlay {
 
     private Playing playing;

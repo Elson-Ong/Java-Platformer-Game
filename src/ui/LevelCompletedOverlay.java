@@ -11,6 +11,10 @@ import java.awt.image.BufferedImage;
 
 import static src.utils.Constants.UI.UrmButtons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the Level Completed overlay
+ */
 public class LevelCompletedOverlay {
 
     private Playing playing;

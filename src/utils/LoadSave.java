@@ -1,21 +1,17 @@
 package src.utils;
 
-import src.entities.Crabby;
-import src.gamestates.Playing;
-import src.main.Game;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 
-import static src.utils.Constants.EnemyConstants.CRABBY;
-
+/**
+ * @author  Tze Yik Ong
+ * Class to load all the images from the res folder
+ */
 public class LoadSave {
 
     public static final String PLAYER_ATLAS = "player_sprites.png";

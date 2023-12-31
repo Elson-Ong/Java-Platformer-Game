@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 import src.gamestates.Gamestate;
 import src.main.GamePanel;
 
+/**
+ * @author  Tze Yik Ong
+ * Class to handle keyboard inputs
+ */
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gamePanel;
@@ -16,7 +20,6 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override

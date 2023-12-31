@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 
 import static src.utils.Constants.UI.VolumeButtons.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the volume slider in the pause overlay
+ */
 public class VolumeButton extends PauseButton{
 
     private BufferedImage[] imgs;

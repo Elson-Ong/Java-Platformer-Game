@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 import static src.utils.HelpMethods.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class to keep track of the individual level data
+ */
 public class Level {
 
     private BufferedImage img;

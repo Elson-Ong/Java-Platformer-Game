@@ -5,10 +5,13 @@ import src.ui.MenuButton;
 
 import java.awt.event.MouseEvent;
 
+/**
+ * @author  Tze Yik Ong
+ * Superclass for the game states
+ */
 public class State {
 
     protected Game game;
-
 
     public State(Game game){
         this.game = game;

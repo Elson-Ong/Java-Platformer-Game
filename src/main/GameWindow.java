@@ -6,7 +6,6 @@ import java.awt.event.WindowFocusListener;
 
 /**
  * @author  Tze Yik Ong
- *
  * Class for game window
  */
 public class GameWindow {

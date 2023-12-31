@@ -6,11 +6,14 @@ import src.main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.nio.BufferOverflowException;
 import java.util.ArrayList;
 
 import static src.utils.Constants.EnemyConstants.CRABBY;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the static helper methods for the whole program
+ */
 public class HelpMethods {
 
     public static boolean canMoveHere(float x, float y, float width, float height, int[][] lvlData) {
