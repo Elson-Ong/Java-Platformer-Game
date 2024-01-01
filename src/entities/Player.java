@@ -79,10 +79,16 @@ public class Player extends Entity {
 
         updateAttackBox();
         updatePos();
+        if(moving)
+            checkPotionTouched();
         if(attacking)
             checkAttack();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkPotionTouched() {
+        playing.checkPotionTouched(hitbox);
     }
 
     private void checkAttack() {
@@ -91,6 +97,7 @@ public class Player extends Entity {
 
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
+        playing.checckObjectHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -248,6 +255,10 @@ public class Player extends Entity {
         }
     }
 
+    public void changePower(int value) {
+        System.out.println("Added Power!" + value); //placeholder for now
+    }
+
     private void loadAnimations() {
         BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
@@ -308,4 +319,5 @@ public class Player extends Entity {
         if (!isEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
+
 }

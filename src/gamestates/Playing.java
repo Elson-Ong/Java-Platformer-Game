@@ -12,6 +12,7 @@ import src.entities.EnemyManager;
 import src.entities.Player;
 import src.levels.LevelManager;
 import src.main.Game;
+import src.objects.ObjectManager;
 import src.ui.GameOverOverlay;
 import src.ui.LevelCompletedOverlay;
 import src.ui.PauseOverlay;
@@ -27,6 +28,7 @@ public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
     private EnemyManager enemyManager;
+    private ObjectManager objectManager;
     private PauseOverlay pauseOverlay;
     private GameOverOverlay gameOverOverlay;
     private LevelCompletedOverlay levelCompletedOverlay;
@@ -70,6 +72,7 @@ public class Playing extends State implements Statemethods {
 
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
+        objectManager.loadObjects(levelManager.getCurrentLevel());
     }
 
     private void calcLvlOffser() {
@@ -79,6 +82,7 @@ public class Playing extends State implements Statemethods {
     private void initClasses() {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
+        objectManager = new ObjectManager(this);
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         player.setSpawn(levelManager.getCurrentLevel().getSpawnPoint());
@@ -97,6 +101,7 @@ public class Playing extends State implements Statemethods {
         }
         else if (!gameOver){
             levelManager.update();
+            objectManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             checkCloseToBorder();
@@ -127,6 +132,7 @@ public class Playing extends State implements Statemethods {
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
         enemyManager.draw(g, xLvlOffset);
+        objectManager.draw(g, xLvlOffset);
 
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -157,10 +163,19 @@ public class Playing extends State implements Statemethods {
         lvlCompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
+        objectManager.resetAllObject();
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox){
         enemyManager.checkEnemyHit(attackBox);
+    }
+
+    public void checkPotionTouched(Rectangle2D.Float hitbox){
+        objectManager.checkPotionTouched(hitbox);
+    }
+
+    public void checckObjectHit(Rectangle2D.Float attackBox) {
+        objectManager.checkObjectHit(attackBox);
     }
 
     @Override
@@ -272,4 +287,9 @@ public class Playing extends State implements Statemethods {
     public EnemyManager getEnemyManager() {
         return enemyManager;
     }
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
 }
