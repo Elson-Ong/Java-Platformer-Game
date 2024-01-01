@@ -8,6 +8,10 @@ import java.awt.geom.Rectangle2D;
 import static src.utils.Constants.*;
 import static src.utils.Constants.ObjectConstants.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Superclass for all the game objects
+ */
 public class GameObject {
 
     protected int x, y, objType;
@@ -33,7 +37,6 @@ public class GameObject {
                     doAnimation = false;
                     active = false;
                 }
-
             }
         }
     }

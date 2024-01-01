@@ -2,6 +2,10 @@ package src.objects;
 
 import src.main.Game;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for the potions
+ */
 public class Potion extends GameObject{
 
     private float hoverOffset;

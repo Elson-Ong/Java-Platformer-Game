@@ -13,24 +13,32 @@ import java.net.URL;
  * Class to load all the images from the res folder
  */
 public class LoadSave {
-
+    // Player
     public static final String PLAYER_ATLAS = "player_sprites.png";
+    // Game background
     public static final String LEVEL_ATLAS = "outside_sprites.png";
+    public static final String PLAYING_BG_IMG = "playing_bg_img.png";
+    public static final String BIG_CLOUDS = "big_clouds.png";
+    public static final String SMALL_CLOUDS = "small_clouds.png";
+    // Enemy
+    public static final String CRABBY_SPRITE = "crabby_sprite.png";
+    // Game object
+    public static final String POTION_ATLAS = "potions_sprites.png";
+    public static final String CONTAINER_ATLAS = "objects_sprites.png";
+    public static final String TRAP_ATLAS = "trap_atlas.png";
+    // Status bar
+    public static final String STATUS_BAR = "health_power_bar.png";
+    // Menu
     public static final String MENU_BUTTONS = "button_atlas.png";
     public static final String MENU_BACKGROUND = "menu_background.png";
     public static final String MENU_BACKGROUND_IMG = "background_menu.png";
+    // Pause
     public static final String PAUSE_BACKGROUND = "pause_menu.png";
     public static final String SOUND_BUTTONS = "sound_button.png";
     public static final String URM_BUTTONS = "urm_buttons.png";
     public static final String VOLUME_BUTTONS = "volume_buttons.png";
-    public static final String PLAYING_BG_IMG = "playing_bg_img.png";
-    public static final String BIG_CLOUDS = "big_clouds.png";
-    public static final String SMALL_CLOUDS = "small_clouds.png";
-    public static final String CRABBY_SPRITE = "crabby_sprite.png";
-    public static final String STATUS_BAR = "health_power_bar.png";
+    // Level completed
     public static final String COMPLETED_IMG = "completed_sprite.png";
-    public static final String POTION_ATLAS = "potions_sprites.png";
-    public static final String CONTAINER_ATLAS = "objects_sprites.png";
 
     public static BufferedImage getSpriteAtlas(String fileName){
         BufferedImage img = null;

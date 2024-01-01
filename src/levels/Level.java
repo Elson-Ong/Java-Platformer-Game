@@ -4,6 +4,7 @@ import src.entities.Crabby;
 import src.main.Game;
 import src.objects.GameContainer;
 import src.objects.Potion;
+import src.objects.Spike;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ public class Level {
     private ArrayList<Crabby> crabsList;
     private ArrayList<Potion> potionsList;
     private ArrayList<GameContainer> containersList;
+    private ArrayList<Spike> spikesList;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
@@ -33,6 +35,7 @@ public class Level {
         createEnemies();
         createPotions();
         createContainers();
+        createSpikes();
         calcLvlOffsets();
         calcPlayerSpawn();
     }
@@ -45,6 +48,10 @@ public class Level {
         lvlTilesWide = img.getWidth();
         maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
         maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
+    }
+
+    private void createSpikes() {
+        spikesList =  getSpikes(img);
     }
 
     private void createContainers() {
@@ -81,6 +88,10 @@ public class Level {
 
     public ArrayList<GameContainer> getContainersList() {
         return containersList;
+    }
+
+    public ArrayList<Spike> getSpikesList() {
+        return spikesList;
     }
 
     public int getMaxLvlOffsetX() {

@@ -4,6 +4,10 @@ import src.main.Game;
 
 import static src.utils.Constants.ObjectConstants.*;
 
+/**
+ * @author  Tze Yik Ong
+ * Class for containers in the game - boxes and barrels
+ */
 public class GameContainer extends GameObject{
 
     public GameContainer(int x, int y, int objType) {
