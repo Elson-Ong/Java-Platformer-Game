@@ -2,6 +2,7 @@ package src.utils;
 
 import src.entities.Crabby;
 import src.main.Game;
+import src.objects.Cannon;
 import src.objects.GameContainer;
 import src.objects.Potion;
 import src.objects.Spike;
@@ -92,13 +93,19 @@ public class HelpMethods {
 
     }
 
-    private static boolean isAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData){
-        for(int i = 0;  i < xEnd - xStart; i ++) {
+    public static boolean isAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData){
+        for(int i = 0;  i < xEnd - xStart; i ++)
             if (isTileSolid(xStart + i, y, lvlData))
                 return false;
-            if(!isTileSolid(xStart + i, y + 1, lvlData))
-                return false;
-        }
+        return true;
+    }
+
+    private static boolean isAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData){
+        if (isAllTilesClear(xStart, xEnd, y, lvlData))
+            for(int i = 0;  i < xEnd - xStart; i ++) {
+                if(!isTileSolid(xStart + i, y + 1, lvlData))
+                    return false;
+            }
         return true;
     }
     public static boolean isSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
@@ -109,6 +116,16 @@ public class HelpMethods {
             return isAllTilesWalkable(secondXTile, firstXTile, yTile, lvlData);
         else
             return isAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
+    }
+
+    public static boolean canCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
+        int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
+        int secondXTile = (int) (secondHitbox.x / Game.TILES_SIZE);
+
+        if(firstXTile > secondXTile)
+            return isAllTilesClear(secondXTile, firstXTile, yTile, lvlData);
+        else
+            return isAllTilesClear(firstXTile, secondXTile, yTile, lvlData);
     }
 
     public static int[][] getLevelData(BufferedImage img){
@@ -183,6 +200,21 @@ public class HelpMethods {
 
                 if(value == SPIKE)
                     list.add(new Spike(i * Game.TILES_SIZE, j * Game.TILES_SIZE, SPIKE));
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<Cannon> getCannons(BufferedImage img){
+        ArrayList<Cannon> list = new ArrayList<>();
+
+        for(int j = 0; j < img.getHeight(); j ++){
+            for(int i = 0 ; i < img.getWidth(); i ++){
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getBlue();
+
+                if(value == CANNON_LEFT || value == CANNON_RIGHT)
+                    list.add(new Cannon(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
             }
         }
         return list;

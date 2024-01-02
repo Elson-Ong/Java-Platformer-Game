@@ -3,6 +3,7 @@ package src.objects;
 import src.entities.Player;
 import src.gamestates.Playing;
 import src.levels.Level;
+import src.main.Game;
 import src.utils.LoadSave;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static src.utils.Constants.ObjectConstants.*;
+import static src.utils.HelpMethods.canCannonSeePlayer;
 
 /**
  * @author  Tze Yik Ong
@@ -20,10 +22,12 @@ public class ObjectManager {
 
     private Playing playing;
     private BufferedImage[][] potionImgs, containerImgs;
+    private BufferedImage[] cannonImgs;
     private BufferedImage spikeImg;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Spike> spikes;
+    private ArrayList<Cannon> cannons;
 
     public ObjectManager(Playing playing){
         this.playing = playing;
@@ -72,6 +76,7 @@ public class ObjectManager {
         potions = new ArrayList<>(newLevel.getPotionsList());
         containers = new ArrayList<>(newLevel.getContainersList());
         spikes = newLevel.getSpikesList();
+        cannons = newLevel.getCannonsList();
     }
 
     private void loadImgs() {
@@ -90,9 +95,15 @@ public class ObjectManager {
                 containerImgs[j][i] = containerSprite.getSubimage(40 * i, 30 * j, 40, 30);
 
         spikeImg = LoadSave.getSpriteAtlas(LoadSave.TRAP_ATLAS);
+
+        cannonImgs = new BufferedImage[7];
+        BufferedImage temp = LoadSave.getSpriteAtlas(LoadSave.CANNON_ATLAS);
+
+        for(int i = 0; i < cannonImgs.length; i ++)
+            cannonImgs[i] = temp.getSubimage(40 * i,0,40,26);
     }
 
-    public void update(){
+    public void update(int[][] lvlData, Player player){
         for(Potion p: potions)
             if(p.isActive())
                 p.update();
@@ -100,12 +111,67 @@ public class ObjectManager {
         for (GameContainer gc: containers)
             if(gc.isActive())
                 gc.update();
+
+        updateCannon(lvlData, player);
+    }
+
+    private void updateCannon(int[][] lvlData, Player player) {
+        for(Cannon c : cannons) {
+            if(!c.doAnimation)
+                if(c.getTileY() == player.getTileY())
+                    if(isPlayerInRange(c, player))
+                        if(isPlayerInfrontOfCannon(c, player))
+                            if(canCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY()))
+                                shootCannon(c);
+
+            c.update();
+        }
+    }
+
+    private void shootCannon(Cannon c) {
+        c.setAnimation(true);
+    }
+
+    private boolean isPlayerInRange(Cannon c, Player player) {
+        int distanceToPlayer = (int) Math.abs(player.getHitbox().x - c.getHitbox().x);
+        return distanceToPlayer <= Game.TILES_SIZE * 5;
+    }
+
+    private boolean isPlayerInfrontOfCannon(Cannon c, Player player) {
+        if(c.getObjType() == CANNON_LEFT) {
+            if (c.getHitbox().x > player.getHitbox().x)
+                return true;
+        }
+        else {
+            if (c.getHitbox().x < player.getHitbox().x)
+                return true;
+        }
+        return false;
     }
 
     public void draw(Graphics g, int xLvlOffset){
         drawPotions(g, xLvlOffset);
         drawContainers(g, xLvlOffset);
         drawTraps(g, xLvlOffset);
+        drawCannons(g, xLvlOffset);
+    }
+
+    private void drawCannons(Graphics g, int xLvlOffset) {
+        for(Cannon c : cannons){
+            int x = (int) (c.getHitbox().x - xLvlOffset);
+            int width = CANNON_WIDTH;
+
+            if(c.getObjType() == CANNON_RIGHT){
+                x += width;
+                width *= -1;
+            }
+            g.drawImage(cannonImgs[c.getAniIndex()],
+                    x,
+                    (int) (c.getHitbox().y),
+                    width,
+                    CANNON_HEIGHT,
+                    null);
+        }
     }
 
     private void drawTraps(Graphics g, int xLvlOffset) {
@@ -158,5 +224,8 @@ public class ObjectManager {
 
         for (GameContainer gc: containers)
             gc.reset();
+
+        for (Cannon c : cannons)
+            c.reset();
     }
 }

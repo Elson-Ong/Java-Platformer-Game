@@ -1,13 +1,5 @@
 package src.gamestates;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-
 import src.entities.EnemyManager;
 import src.entities.Player;
 import src.levels.LevelManager;
@@ -17,6 +9,15 @@ import src.ui.GameOverOverlay;
 import src.ui.LevelCompletedOverlay;
 import src.ui.PauseOverlay;
 import src.utils.LoadSave;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
 import static src.utils.Constants.Environment.*;
 
 /**
@@ -101,7 +102,7 @@ public class Playing extends State implements Statemethods {
         }
         else if (!gameOver){
             levelManager.update();
-            objectManager.update();
+            objectManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             checkCloseToBorder();
