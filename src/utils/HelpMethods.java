@@ -2,10 +2,7 @@ package src.utils;
 
 import src.entities.Crabby;
 import src.main.Game;
-import src.objects.Cannon;
-import src.objects.GameContainer;
-import src.objects.Potion;
-import src.objects.Spike;
+import src.objects.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -126,6 +123,10 @@ public class HelpMethods {
             return isAllTilesClear(secondXTile, firstXTile, yTile, lvlData);
         else
             return isAllTilesClear(firstXTile, secondXTile, yTile, lvlData);
+    }
+
+    public static boolean isProjectileHittingLevel(Projectile p, int[][] lvlData) {
+        return isSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
     }
 
     public static int[][] getLevelData(BufferedImage img){

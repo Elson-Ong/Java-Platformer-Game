@@ -2,6 +2,10 @@ package src.objects;
 
 import src.main.Game;
 
+/**
+ * @author Tze Yik Ong
+ * Class for the cannons
+ */
 public class Cannon extends GameObject{
 
     private int tileY;
