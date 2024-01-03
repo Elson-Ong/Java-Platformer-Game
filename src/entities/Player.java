@@ -75,7 +75,18 @@ public class Player extends Entity {
         updateHealthBar();
 
         if(currentHealth <= 0) {
-            playing.setGameOver(true);
+            if(state != DEAD) {
+                state = DEAD;
+                aniTick = 0;
+                aniIndex = 0;
+                playing.setPlayerDyingTrue(true);
+            }
+            else if (aniIndex == getSpriteAmount(DEAD) - 1 && aniTick >= ANISPEED - 1){
+                playing.setGameOver(true);
+            }
+            else {
+                updateAnimationTick();
+            }
             return;
         }
 
@@ -90,23 +101,6 @@ public class Player extends Entity {
             checkAttack();
         updateAnimationTick();
         setAnimation();
-    }
-
-    private void checkSpikesTouched() {
-        playing.checkSpikesTouched(this);
-    }
-
-    private void checkPotionTouched() {
-        playing.checkPotionTouched(hitbox);
-    }
-
-    private void checkAttack() {
-        if(attackChecked || aniIndex != 1)
-            return;
-
-        attackChecked = true;
-        playing.checkEnemyHit(attackBox);
-        playing.checckObjectHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -130,13 +124,7 @@ public class Player extends Entity {
                 width * flipW, height, null);
 //        drawAttackBox(g, lvlOffset);
 //		  drawHitbox(g, lvlOffset);
-		  drawUI(g);
-    }
-
-    private void drawUI(Graphics g) {
-        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
-        g.setColor(Color.RED);
-        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+        drawUI(g);
     }
 
     private void updateAnimationTick() {
@@ -178,11 +166,6 @@ public class Player extends Entity {
 
         if (startAni != state)
             resetAniTick();
-    }
-
-    private void resetAniTick() {
-        aniTick = 0;
-        aniIndex = 0;
     }
 
     private void updatePos() {
@@ -229,6 +212,36 @@ public class Player extends Entity {
         } else
             updateXPos(xSpeed);
         moving = true;
+    }
+
+    private void checkSpikesTouched() {
+        playing.checkSpikesTouched(this);
+    }
+
+    private void checkPotionTouched() {
+        playing.checkPotionTouched(hitbox);
+    }
+
+    private void checkAttack() {
+        if(attackChecked || aniIndex != 1)
+            return;
+
+        attackChecked = true;
+        playing.checkEnemyHit(attackBox);
+        playing.checckObjectHit(attackBox);
+    }
+
+
+
+    private void drawUI(Graphics g) {
+        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.RED);
+        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+    }
+
+    private void resetAniTick() {
+        aniTick = 0;
+        aniIndex = 0;
     }
 
     private void jump() {

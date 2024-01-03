@@ -41,6 +41,9 @@ public class LoadSave {
     public static final String VOLUME_BUTTONS = "volume_buttons.png";
     // Level completed
     public static final String COMPLETED_IMG = "completed_sprite.png";
+    // Death screen
+    public static final String DEATH_SCREEN = "death_screen.png";
+
 
     public static BufferedImage getSpriteAtlas(String fileName){
         BufferedImage img = null;
