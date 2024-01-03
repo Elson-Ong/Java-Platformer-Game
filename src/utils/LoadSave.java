@@ -43,7 +43,8 @@ public class LoadSave {
     public static final String COMPLETED_IMG = "completed_sprite.png";
     // Death screen
     public static final String DEATH_SCREEN = "death_screen.png";
-
+    // Option Screen
+    public static final String OPTIONS_MENU = "options_background.png";
 
     public static BufferedImage getSpriteAtlas(String fileName){
         BufferedImage img = null;
