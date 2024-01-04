@@ -1,5 +1,6 @@
 package src.gamestates;
 
+import src.audio.AudioPlayer;
 import src.entities.EnemyManager;
 import src.entities.Player;
 import src.levels.LevelManager;
@@ -285,6 +286,8 @@ public class Playing extends State implements Statemethods {
 
     public void setLvlCompleted(boolean lvlCompleted) {
         this.lvlCompleted = lvlCompleted;
+        if(lvlCompleted)
+            game.getAudioPlayer().playEffect(AudioPlayer.LVL_COMPLETED);
     }
 
     public void setMaxLvlOffsetX(int maxLvlOffsetX) {
