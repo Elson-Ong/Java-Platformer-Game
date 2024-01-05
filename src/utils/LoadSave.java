@@ -36,7 +36,6 @@ public class LoadSave {
     public static final String QUESTION_ATLAS = "question_atlas.png";
     public static final String EXCLAMATION_ATLAS = "exclamation_atlas.png";
     public static final String SHARK_ATLAS = "shark_atlas.png";
-    public static final String CREDITS = "credits_list.png";
     public static final String GRASS_ATLAS = "grass_atlas.png";
     public static final String TREE_ONE_ATLAS = "tree_one_atlas.png";
     public static final String TREE_TWO_ATLAS = "tree_two_atlas.png";

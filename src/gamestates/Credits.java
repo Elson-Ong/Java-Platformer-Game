@@ -10,7 +10,8 @@ import src.main.Game;
 import src.utils.LoadSave;
 
 public class Credits extends State implements Statemethods {
-    private BufferedImage backgroundImg, creditsImg;
+    private BufferedImage backgroundImg;
+//    private BufferedImage creditsImg;
     private int bgX, bgY, bgW, bgH;
     private float bgYFloat;
 
@@ -19,9 +20,9 @@ public class Credits extends State implements Statemethods {
     public Credits(Game game) {
         super(game);
         backgroundImg = LoadSave.getSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
-        creditsImg = LoadSave.getSpriteAtlas(LoadSave.CREDITS);
-        bgW = (int) (creditsImg.getWidth() * Game.SCALE);
-        bgH = (int) (creditsImg.getHeight() * Game.SCALE);
+//        creditsImg = LoadSave.getSpriteAtlas(LoadSave.CREDITS);
+//        bgW = (int) (creditsImg.getWidth() * Game.SCALE);
+//        bgH = (int) (creditsImg.getHeight() * Game.SCALE);
         bgX = Game.GAME_WIDTH / 2 - bgW / 2;
         bgY = Game.GAME_HEIGHT;
         loadEntities();
@@ -52,7 +53,7 @@ public class Credits extends State implements Statemethods {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-        g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), bgW, bgH, null);
+//        g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), bgW, bgH, null);
 
         for (ShowEntity se : entitiesList)
             se.draw(g);
