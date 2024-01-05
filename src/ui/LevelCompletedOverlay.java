@@ -1,20 +1,16 @@
 package src.ui;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
 import src.gamestates.Gamestate;
 import src.gamestates.Playing;
 import src.main.Game;
 import src.utils.LoadSave;
+import static src.utils.Constants.UI.URMButtons.*;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
-import static src.utils.Constants.UI.UrmButtons.*;
-
-/**
- * @author  Tze Yik Ong
- * Class for the Level Completed overlay
- */
 public class LevelCompletedOverlay {
 
     private Playing playing;
@@ -22,7 +18,7 @@ public class LevelCompletedOverlay {
     private BufferedImage img;
     private int bgX, bgY, bgW, bgH;
 
-    public LevelCompletedOverlay(Playing playing){
+    public LevelCompletedOverlay(Playing playing) {
         this.playing = playing;
         initImg();
         initButtons();
@@ -40,57 +36,59 @@ public class LevelCompletedOverlay {
         img = LoadSave.getSpriteAtlas(LoadSave.COMPLETED_IMG);
         bgW = (int) (img.getWidth() * Game.SCALE);
         bgH = (int) (img.getHeight() * Game.SCALE);
-        bgX =  Game.GAME_WIDTH / 2 - bgW / 2;
+        bgX = Game.GAME_WIDTH / 2 - bgW / 2;
         bgY = (int) (75 * Game.SCALE);
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 200));
+        g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
+
         g.drawImage(img, bgX, bgY, bgW, bgH, null);
         next.draw(g);
         menu.draw(g);
     }
 
-    public void update(){
+    public void update() {
         next.update();
         menu.update();
     }
 
-    private boolean isIn(UrmButton b, MouseEvent e){
-        return b.getBounds().contains(e.getX(),e.getY());
+    private boolean isIn(UrmButton b, MouseEvent e) {
+        return b.getBounds().contains(e.getX(), e.getY());
     }
 
-    public void mouseMoved(MouseEvent e){
+    public void mouseMoved(MouseEvent e) {
         next.setMouseOver(false);
         menu.setMouseOver(false);
 
-        if(isIn(menu, e))
+        if (isIn(menu, e))
             menu.setMouseOver(true);
-        else if(isIn(next, e))
+        else if (isIn(next, e))
             next.setMouseOver(true);
     }
 
-    public void mousePressed(MouseEvent e){
+    public void mouseReleased(MouseEvent e) {
+        if (isIn(menu, e)) {
+            if (menu.isMousePressed()) {
+                playing.resetAll();
+                playing.setGamestate(Gamestate.MENU);
+            }
+        } else if (isIn(next, e))
+            if (next.isMousePressed()) {
+                playing.loadNextLevel();
+                playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLevelIndex());
+            }
+
+        menu.resetBools();
+        next.resetBools();
+    }
+
+    public void mousePressed(MouseEvent e) {
         if (isIn(menu, e))
             menu.setMousePressed(true);
         else if (isIn(next, e))
             next.setMousePressed(true);
     }
 
-    public void mouseReleased(MouseEvent e){
-        if (isIn(menu, e)) {
-            if (menu.isMousePressed()) {
-                playing.resetAll();
-                playing.setGameState(Gamestate.MENU);
-            }
-        }
-        else if (isIn(next, e)) {
-            if (next.isMousePressed()) {
-                playing.loadNextLevel();
-                playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLvlIndex());
-            }
-        }
-
-        menu.resetBools();
-        next.resetBools();
-    }
 }

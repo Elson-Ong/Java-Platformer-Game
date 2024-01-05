@@ -1,17 +1,14 @@
 package src.objects;
 
-import src.main.Game;
-
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
-import static src.utils.Constants.*;
+import static src.utils.Constants.ANI_SPEED;
 import static src.utils.Constants.ObjectConstants.*;
 
-/**
- * @author  Tze Yik Ong
- * Superclass for all the game objects
- */
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
+
+import src.main.Game;
+
 public class GameObject {
 
     protected int x, y, objType;
@@ -20,7 +17,7 @@ public class GameObject {
     protected int aniTick, aniIndex;
     protected int xDrawOffset, yDrawOffset;
 
-    public GameObject(int x, int y, int objType){
+    public GameObject(int x, int y, int objType) {
         this.x = x;
         this.y = y;
         this.objType = objType;
@@ -28,49 +25,42 @@ public class GameObject {
 
     protected void updateAnimationTick() {
         aniTick++;
-        if (aniTick >= ANISPEED) {
+        if (aniTick >= ANI_SPEED) {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= getSpriteAmount(objType)) {
                 aniIndex = 0;
-                if(objType == BARREL || objType == BOX){
+                if (objType == BARREL || objType == BOX) {
                     doAnimation = false;
                     active = false;
-                }
-                else if(objType == CANNON_LEFT || objType == CANNON_RIGHT){
+                } else if (objType == CANNON_LEFT || objType == CANNON_RIGHT)
                     doAnimation = false;
-                }
             }
         }
     }
 
-    public void reset(){
+    public void reset() {
         aniIndex = 0;
         aniTick = 0;
         active = true;
 
-        if(objType == BARREL || objType == BOX || objType == CANNON_LEFT || objType == CANNON_RIGHT)
+        if (objType == BARREL || objType == BOX || objType == CANNON_LEFT || objType == CANNON_RIGHT)
             doAnimation = false;
         else
             doAnimation = true;
     }
 
     protected void initHitbox(int width, int height) {
-        hitbox = new Rectangle2D.Float(x, y, (int)(width * Game.SCALE), (int)(height * Game.SCALE));
+        hitbox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
     }
 
-    public void drawHitbox(Graphics g, int xLvlOffset){
-        //For debugging hitbox
+    public void drawHitbox(Graphics g, int xLvlOffset) {
         g.setColor(Color.PINK);
-        g.drawRect((int)hitbox.x - xLvlOffset, (int)hitbox.y, (int)hitbox.width, (int)hitbox.height);
+        g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
     public int getObjType() {
         return objType;
-    }
-
-    public void setObjType(int objType) {
-        this.objType = objType;
     }
 
     public Rectangle2D.Float getHitbox() {
@@ -104,4 +94,5 @@ public class GameObject {
     public int getAniTick() {
         return aniTick;
     }
+
 }

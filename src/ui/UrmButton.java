@@ -5,7 +5,7 @@ import src.utils.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static src.utils.Constants.UI.UrmButtons.*;
+import static src.utils.Constants.UI.URMButtons.*;
 
 /**
  * @author  Tze Yik Ong
@@ -28,7 +28,7 @@ public class UrmButton extends PauseButton{
         imgs = new BufferedImage[3];
 
         for(int i = 0; i < imgs.length; i ++){
-            imgs[i] = temp.getSubimage(i * URM_SIZE_DEFAULT, rowIndex  * URM_SIZE_DEFAULT, URM_SIZE_DEFAULT, URM_SIZE_DEFAULT);
+            imgs[i] = temp.getSubimage(i * URM_DEFAULT_SIZE, rowIndex  * URM_DEFAULT_SIZE, URM_DEFAULT_SIZE, URM_DEFAULT_SIZE);
         }
     }
 

@@ -1,27 +1,22 @@
 package src.ui;
 
-import src.gamestates.Gamestate;
-import src.utils.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import src.gamestates.Gamestate;
+import src.utils.LoadSave;
 import static src.utils.Constants.UI.Buttons.*;
 
-/**
- * @author  Tze Yik Ong
- * Class for all the buttons in the menu screen
- */
 public class MenuButton {
-
-    private  int xPos, yPos, rowIndex, index;
-    private int xOffsetCenter = B_WIDTH /2;
+    private int xPos, yPos, rowIndex, index;
+    private int xOffsetCenter = B_WIDTH / 2;
     private Gamestate state;
     private BufferedImage[] imgs;
     private boolean mouseOver, mousePressed;
-    private Rectangle bounds; //hitbox of the buttons
+    private Rectangle bounds;
 
-    public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state){
+    public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.rowIndex = rowIndex;
@@ -34,24 +29,22 @@ public class MenuButton {
         bounds = new Rectangle(xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
     }
 
-    private void loadImgs(){
+    private void loadImgs() {
         imgs = new BufferedImage[3];
         BufferedImage temp = LoadSave.getSpriteAtlas(LoadSave.MENU_BUTTONS);
-
-        for(int i =0; i < imgs.length; i ++){
+        for (int i = 0; i < imgs.length; i++)
             imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
-        }
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         g.drawImage(imgs[index], xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT, null);
     }
 
-    public void update(){
+    public void update() {
         index = 0;
-        if(mouseOver)
+        if (mouseOver)
             index = 1;
-        if(mousePressed)
+        if (mousePressed)
             index = 2;
     }
 
@@ -75,16 +68,16 @@ public class MenuButton {
         return bounds;
     }
 
-    public void applyGamestate(){
+    public void applyGamestate() {
         Gamestate.state = state;
     }
 
-    public void resetBools(){
+    public void resetBools() {
         mouseOver = false;
         mousePressed = false;
     }
-
     public Gamestate getState() {
         return state;
     }
+
 }

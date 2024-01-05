@@ -1,86 +1,103 @@
 package src.levels;
 
-import src.gamestates.Gamestate;
-import src.main.Game;
-import src.utils.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-/**
- * @author  Tze Yik Ong
- * Class to load all the level data of all the levels and move between different levels
- */
+import src.main.Game;
+import src.utils.LoadSave;
+
 public class LevelManager {
 
     private Game game;
     private BufferedImage[] levelSprite;
+    private BufferedImage[] waterSprite;
     private ArrayList<Level> levels;
-    private int lvlIndex = 0;
+    private int lvlIndex = 0, aniTick, aniIndex;
 
-    public LevelManager(Game game){
-        this.game= game;
-        importOutsideSprite();
+    public LevelManager(Game game) {
+        this.game = game;
+        importOutsideSprites();
+        createWater();
         levels = new ArrayList<>();
         buildAllLevels();
     }
 
-    public void loadNextLevel(){
-        lvlIndex ++;
-        if(lvlIndex >= levels.size()){
-            lvlIndex = 0;
-            System.out.println("No more levels! Game completed!");
-            Gamestate.state = Gamestate.MENU;
-        }
+    private void createWater() {
+        waterSprite = new BufferedImage[5];
+        BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.WATER_TOP);
+        for (int i = 0; i < 4; i++)
+            waterSprite[i] = img.getSubimage(i * 32, 0, 32, 32);
+        waterSprite[4] = LoadSave.getSpriteAtlas(LoadSave.WATER_BOTTOM);
+    }
 
+    public void loadNextLevel() {
         Level newLevel = levels.get(lvlIndex);
         game.getPlaying().getEnemyManager().loadEnemies(newLevel);
-        game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());
-        game.getPlaying().setMaxLvlOffsetX(newLevel.getMaxLvlOffsetX());
+        game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
+        game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
         game.getPlaying().getObjectManager().loadObjects(newLevel);
     }
 
     private void buildAllLevels() {
         BufferedImage[] allLevels = LoadSave.getAllLevels();
-        for(BufferedImage img : allLevels)
+        for (BufferedImage img : allLevels)
             levels.add(new Level(img));
     }
 
-    private void importOutsideSprite() {
+    private void importOutsideSprites() {
         BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
         levelSprite = new BufferedImage[48];
-
-        for(int j = 0; j < 4; j++){
-            for (int i = 0; i < 12; i++){
+        for (int j = 0; j < 4; j++)
+            for (int i = 0; i < 12; i++) {
                 int index = j * 12 + i;
-                levelSprite[index] = img.getSubimage(i*32, j *32, 32, 32);
+                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
             }
+    }
+
+    public void draw(Graphics g, int lvlOffset) {
+        for (int j = 0; j < Game.TILES_IN_HEIGHT; j++)
+            for (int i = 0; i < levels.get(lvlIndex).getLevelData()[0].length; i++) {
+                int index = levels.get(lvlIndex).getSpriteIndex(i, j);
+                int x = Game.TILES_SIZE * i - lvlOffset;
+                int y = Game.TILES_SIZE * j;
+                if (index == 48)
+                    g.drawImage(waterSprite[aniIndex], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+                else if (index == 49)
+                    g.drawImage(waterSprite[4], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+                else
+                    g.drawImage(levelSprite[index], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+            }
+    }
+
+    public void update() {
+        updateWaterAnimation();
+    }
+
+    private void updateWaterAnimation() {
+        aniTick++;
+        if (aniTick >= 40) {
+            aniTick = 0;
+            aniIndex++;
+
+            if (aniIndex >= 4)
+                aniIndex = 0;
         }
     }
 
-    public void draw(Graphics g, int lvlOffset){
-        for(int j = 0; j < Game.TILES_IN_HEIGHT; j++){
-            for(int i = 0; i < levels.get(lvlIndex).getLvlData()[0].length; i++){
-                int index = levels.get(lvlIndex).getSpriteIndex(i,j);
-                g.drawImage(levelSprite[index],Game.TILES_SIZE * i - lvlOffset,Game.TILES_SIZE * j, Game.TILES_SIZE, Game.TILES_SIZE, null);
-            }
-        }
-    }
-
-    public void update(){
-
-    }
-
-    public Level getCurrentLevel(){
+    public Level getCurrentLevel() {
         return levels.get(lvlIndex);
     }
 
-    public int getAmountOfLevels(){
+    public int getAmountOfLevels() {
         return levels.size();
     }
 
-    public int getLvlIndex() {
+    public int getLevelIndex() {
         return lvlIndex;
+    }
+
+    public void setLevelIndex(int lvlIndex) {
+        this.lvlIndex = lvlIndex;
     }
 }

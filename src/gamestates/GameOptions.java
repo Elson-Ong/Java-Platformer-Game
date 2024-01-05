@@ -1,30 +1,29 @@
 package src.gamestates;
 
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
 import src.main.Game;
 import src.ui.AudioOptions;
 import src.ui.PauseButton;
 import src.ui.UrmButton;
 import src.utils.LoadSave;
+import static src.utils.Constants.UI.URMButtons.*;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+public class GameOptions extends State implements Statemethods {
 
-import static src.utils.Constants.UI.UrmButtons.*;
-
-public class GameOptions extends State implements Statemethods{
-    
     private AudioOptions audioOptions;
     private BufferedImage backgroundImg, optionsBackgroundImg;
     private int bgX, bgY, bgW, bgH;
     private UrmButton menuB;
-    
+
     public GameOptions(Game game) {
         super(game);
-        audioOptions = game.getAudioOptions();
         loadImgs();
         loadButton();
+        audioOptions = game.getAudioOptions();
     }
 
     private void loadButton() {
@@ -59,27 +58,25 @@ public class GameOptions extends State implements Statemethods{
         audioOptions.draw(g);
     }
 
-    public void  mouseDragged(MouseEvent e){
+    public void mouseDragged(MouseEvent e) {
         audioOptions.mouseDragged(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (isIn(e, menuB))
+        if (isIn(e, menuB)) {
             menuB.setMousePressed(true);
-        else
+        } else
             audioOptions.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(isIn(e, menuB)) {
+        if (isIn(e, menuB)) {
             if (menuB.isMousePressed())
                 Gamestate.state = Gamestate.MENU;
-        }
-        else
+        } else
             audioOptions.mouseReleased(e);
-
         menuB.resetBools();
     }
 
@@ -87,7 +84,7 @@ public class GameOptions extends State implements Statemethods{
     public void mouseMoved(MouseEvent e) {
         menuB.setMouseOver(false);
 
-        if(isIn(e, menuB))
+        if (isIn(e, menuB))
             menuB.setMouseOver(true);
         else
             audioOptions.mouseMoved(e);
@@ -95,23 +92,24 @@ public class GameOptions extends State implements Statemethods{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             Gamestate.state = Gamestate.MENU;
-    }
-
-    private boolean isIn(MouseEvent e, PauseButton b){
-        return b.getBounds().contains(e.getX(),e.getY());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
 
     }
 
+    private boolean isIn(MouseEvent e, PauseButton b) {
+        return b.getBounds().contains(e.getX(), e.getY());
+    }
 
 }
